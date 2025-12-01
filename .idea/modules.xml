@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/event-system/.idea/event-system.iml" filepath="$PROJECT_DIR$/event-system/.idea/event-system.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-system/.idea/order-system.iml" filepath="$PROJECT_DIR$/order-system/.idea/order-system.iml" />
       <module fileurl="file://$PROJECT_DIR$/user-service-v1/.idea/user-service-v1.iml" filepath="$PROJECT_DIR$/user-service-v1/.idea/user-service-v1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user-service-v2/.idea/user-service-v2.iml" filepath="$PROJECT_DIR$/user-service-v2/.idea/user-service-v2.iml" />
     </modules>
   </component>
 </project>
