@@ -6,21 +6,16 @@ from handlers import handle_user_contact_updated
 async def consume_events():
     connection, channel, queue = await setup_channel()
 
-    print("📡 Event System is listening for events...")
+    print("Event System is listening for events...")
 
     async with connection:
         async with channel:
             async for message in queue:
                 async with message.process():
-                    event_type = None
+                    event_type = message.headers.get("type", None)
 
-                    try:
-                        event_type = message.headers.get("type", None)
-                    except:
-                        pass
-
-                    # For now, treat all messages as "user.contact.updated"
-                    await handle_user_contact_updated(message.body)
+                    if event_type == "user.contact.updated":
+                        await handle_user_contact_updated(message.body)
 
 
 if __name__ == "__main__":

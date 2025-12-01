@@ -20,5 +20,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 ADD src .
 
-# Run with uvicorn
+ENV PYTHONUNBUFFERED=1
+
+# Run event-system
 CMD ["uv", "run", "main.py"]

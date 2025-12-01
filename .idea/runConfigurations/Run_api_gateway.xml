@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="api-gateway-docker" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+  <configuration default="false" name="Run api-gateway" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
     <deployment type="dockerfile">
       <settings>
-        <option name="imageTag" value="coen424-a2/api-gateway" />
+        <option name="imageTag" value="coen424-f25-a2/api-gateway" />
         <option name="containerName" value="api-gateway" />
         <option name="portBindings">
           <list>
