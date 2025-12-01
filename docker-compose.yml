@@ -23,9 +23,9 @@ services:
       - mongo
       - rabbitmq
     environment:
-          - USER_V1=0.0.0.0:8001
-          - USER_V2=0.0.0.0:8001
-          - P=1
+      - USER_V1=0.0.0.0:8001
+      - USER_V2=0.0.0.0:8001
+      - P=1
     ports:
       - "8000:8000"
 
@@ -34,8 +34,12 @@ services:
     depends_on:
       - mongo
       - rabbitmq
+    environment:
+      - RABBIT_URI=amqp://guest:guest@rabbitmq/
+      - RABBIT_EXCHANGE=user_events
+      - RABBIT_ROUTING_KEY=user.update
 
-  user-service:
+  user-service-v1:
     build: user-service-v1
     depends_on:
       - mongo
@@ -44,6 +48,8 @@ services:
       - MONGO_URI=mongodb://mongo:27017
       - MONGO_DB=userdb
       - RABBIT_URI=amqp://guest:guest@rabbitmq/
+      - RABBIT_EXCHANGE=user_events
+      - RABBIT_ROUTING_KEY=user.update
     ports:
       - "8001:8000"
 
