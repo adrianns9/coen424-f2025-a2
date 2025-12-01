@@ -6,8 +6,9 @@
       <excludeFolder url="file://$MODULE_DIR$/user-service-v1/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/api-gateway/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/event-system/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/order-service/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="uv (event-system)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="uv (event-system) (3)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="user-service-v1" />
     <orderEntry type="module" module-name="event-system" />
@@ -15,6 +16,7 @@
     <orderEntry type="module" module-name="order-system" />
     <orderEntry type="module" module-name="user-service-v2" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="order-service" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
