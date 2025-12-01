@@ -13,6 +13,7 @@ async def consume_events():
             async for message in queue:
                 async with message.process():
                     event_type = message.headers.get("type", None)
+                    print(f"Received event: {event_type}")
 
                     if event_type == "user.contact.updated":
                         await handle_user_contact_updated(message.body)

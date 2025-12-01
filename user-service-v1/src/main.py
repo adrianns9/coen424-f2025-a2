@@ -51,7 +51,6 @@ async def update_user(user_id: str, payload: UserUpdate):
             "delivery_address": update_data.get("delivery_address", existing["delivery_address"]),
         }
         await publish_message(
-            queue_name="user_events",
             message=event_message,
             headers={"type": "user.contact.updated"}
         )

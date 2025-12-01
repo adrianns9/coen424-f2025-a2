@@ -48,6 +48,8 @@ services:
       - MONGO_URI=mongodb://mongo:27017
       - MONGO_DB=userdb
       - RABBIT_URI=amqp://guest:guest@rabbitmq/
+      - RABBIT_EXCHANGE=user_events
+      - RABBIT_ROUTING_KEY=user.update
     ports:
       - "8001:8000"
 
