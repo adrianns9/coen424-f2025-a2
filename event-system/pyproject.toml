@@ -8,4 +8,5 @@ dependencies = [
     "aio-pika>=9.5.8",
     "asyncio>=4.0.0",
     "dotenv>=0.9.9",
+    "httpx>=0.28.1",
 ]
