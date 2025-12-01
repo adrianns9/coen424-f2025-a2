@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"  # management UI
+
+  api-gateway:
+    build: api-gateway
+    depends_on:
+      - mongo
+      - rabbitmq
+    ports:
+      - "8000:8000"
+
+  user-service:
+    build: user-service-v1
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DB=userdb
+      - RABBIT_URI=amqp://guest:guest@rabbitmq/
+    ports:
+      - "8001:8000"
+
+volumes:
+  mongo_data:
