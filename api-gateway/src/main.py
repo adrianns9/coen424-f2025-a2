@@ -5,6 +5,8 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 
+from schemas import UserCreate, UserUpdate, OrderCreate, OrderUpdateStatus, OrdersUpdateContact
+
 load_dotenv()
 
 # User service URLs
@@ -42,26 +44,24 @@ async def forward_request(method: str, url: str, json: dict = None, params: dict
 # User Microservices
 # ----------------------
 @app.post("/users")
-async def create_user(request: Request):
+async def create_user(payload: UserCreate):
     service = pick_user_service()
-    forward_body = await request.json()
-    return await forward_request("POST", f"{service}/users", json=forward_body)
+    return await forward_request("POST", f"{service}/users", json=payload.model_dump())
 
 
 @app.put("/users/{user_id}")
-async def update_user(user_id: str, request: Request):
+async def update_user(user_id: str, payload: UserUpdate):
     service = pick_user_service()
-    forward_body = await request.json()
-    return await forward_request("PUT", f"{service}/users/{user_id}", json=forward_body)
+    return await forward_request("PUT", f"{service}/users/{user_id}", json=payload.model_dump())
 
 
 # ----------------------
 # Order Microservices
 # ----------------------
+
 @app.post("/orders")
-async def create_order(request: Request):
-    forward_body = await request.json()
-    return await forward_request("POST", f"{ORDER_SERVICE}/orders", json=forward_body)
+async def create_order(payload: OrderCreate):
+    return await forward_request("POST", f"{ORDER_SERVICE}/orders", json=payload.model_dump())
 
 
 @app.get("/orders")
@@ -71,12 +71,10 @@ async def get_orders(status: str = None):
 
 
 @app.put("/orders/{order_id}/status")
-async def update_order_status(order_id: str, request: Request):
-    forward_body = await request.json()
-    return await forward_request("PUT", f"{ORDER_SERVICE}/orders/{order_id}/status", json=forward_body)
+async def update_order_status(order_id: str, payload: OrderUpdateStatus):
+    return await forward_request("PUT", f"{ORDER_SERVICE}/orders/{order_id}/status", json=payload.model_dump())
 
 
 @app.put("/orders/contact")
-async def update_order_contact(request: Request):
-    forward_body = await request.json()
-    return await forward_request("PUT", f"{ORDER_SERVICE}/orders/contact", json=forward_body)
+async def update_order_contact(payload: OrdersUpdateContact):
+    return await forward_request("PUT", f"{ORDER_SERVICE}/orders/contact", json=payload.model_dump())
