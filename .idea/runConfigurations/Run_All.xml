@@ -3,6 +3,17 @@
     <deployment type="docker-compose.yml">
       <settings>
         <option name="commandLineOptions" value="--build" />
+        <option name="services">
+          <list>
+            <option value="api-gateway" />
+            <option value="event-system" />
+            <option value="mongo-order" />
+            <option value="mongo-user" />
+            <option value="order-service" />
+            <option value="rabbitmq" />
+            <option value="user-service-v1" />
+          </list>
+        </option>
         <option name="sourceFilePath" value="docker-compose.yml" />
       </settings>
     </deployment>
