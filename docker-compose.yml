@@ -22,6 +22,10 @@ services:
     depends_on:
       - mongo
       - rabbitmq
+    environment:
+          - USER_V1=0.0.0.0:8001
+          - USER_V2=0.0.0.0:8001
+          - P=1
     ports:
       - "8000:8000"
 

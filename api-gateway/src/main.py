@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 USER_V1 = os.getenv("USER_V1")
 USER_V2 = os.getenv("USER_V2")
-P = os.getenv("P", 0.5)
+P = float(os.getenv("P", 0.5))
 
 
 def pick_user_service():

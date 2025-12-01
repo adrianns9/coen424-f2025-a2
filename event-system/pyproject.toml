@@ -1,0 +1,11 @@
+[project]
+name = "event-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aio-pika>=9.5.8",
+    "asyncio>=4.0.0",
+    "dotenv>=0.9.9",
+]
