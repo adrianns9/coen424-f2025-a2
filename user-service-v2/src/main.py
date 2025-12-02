@@ -23,6 +23,7 @@ async def create_user(payload: UserCreate):
         "_id": user_id,
         "email": payload.email,
         "delivery_address": payload.delivery_address,
+        "service_version": "v2",
     }
 
     await users_collection.insert_one(user_doc)
@@ -31,20 +32,37 @@ async def create_user(payload: UserCreate):
 
 @app.put("/users/{user_id}")
 async def update_user(user_id: str, payload: UserUpdate):
+    """
+    Update User Information.
+    Args:
+        user_id: User ID
+        payload: User Update
+    """
     existing = await users_collection.find_one({"_id": user_id})
     if not existing:
         raise HTTPException(status_code=404, detail="User not found")
 
     update_data = {}
-    if payload.email is not None:
-        update_data["email"] = payload.email
-    if payload.delivery_address is not None:
-        update_data["delivery_address"] = payload.delivery_address
+    info_changed = False
 
+    # Detect actual changes
+    if payload.email is not None and payload.email != existing["email"]:
+        update_data["email"] = payload.email
+        info_changed = True
+
+    if payload.delivery_address is not None and payload.delivery_address != existing["delivery_address"]:
+        update_data["delivery_address"] = payload.delivery_address
+        info_changed = True
+
+    # Always keep version tag up to date
+    update_data["service_version"] = "v2"
+
+    # Perform update only if something changed
     if update_data:
         await users_collection.update_one({"_id": user_id}, {"$set": update_data})
 
-        # Publish event to RabbitMQ
+    # Publish event ONLY if contact info changed
+    if info_changed:
         event_message = {
             "user_id": user_id,
             "email": update_data.get("email", existing["email"]),
@@ -60,4 +78,5 @@ async def update_user(user_id: str, payload: UserUpdate):
         "id": updated["_id"],
         "email": updated["email"],
         "delivery_address": updated["delivery_address"],
+        "service_version": updated["service_version"],
     }
